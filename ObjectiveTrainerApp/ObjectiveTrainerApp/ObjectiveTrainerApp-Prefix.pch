@@ -14,3 +14,10 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
 #endif
+
+enum ScreenType {
+    ScreenTypeQuestion,
+    ScreenTypeStats,
+    ScreenTypeAbout,
+    ScreenTypeRemoveAds
+};
