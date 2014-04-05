@@ -30,7 +30,7 @@
 {
     // Create some easy questions
     Question *newQuestion = [[Question alloc] init];
-    newQuestion.questionDifficulty = QuestionDifficultyEasy;
+    newQuestion.questionDifficulty = QuestionDifficultyMedium;
     newQuestion.questionType = QuestionTypeMC;
     newQuestion.questionText = @"This is a test question";
     newQuestion.questionAnswer1 = @"Answer 1";
