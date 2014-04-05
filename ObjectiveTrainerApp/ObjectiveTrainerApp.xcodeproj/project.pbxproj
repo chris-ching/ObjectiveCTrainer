@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		50490D6F18EF700000E64125 /* Question.m in Sources */ = {isa = PBXBuildFile; fileRef = 50490D6E18EF700000E64125 /* Question.m */; };
 		50AB57C118E74FD0006EE06F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50AB57C018E74FD0006EE06F /* Foundation.framework */; };
 		50AB57C318E74FD0006EE06F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50AB57C218E74FD0006EE06F /* CoreGraphics.framework */; };
 		50AB57C518E74FD0006EE06F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50AB57C418E74FD0006EE06F /* UIKit.framework */; };
@@ -43,6 +44,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		50490D6D18EF700000E64125 /* Question.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Question.h; path = Question/Question.h; sourceTree = "<group>"; };
+		50490D6E18EF700000E64125 /* Question.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Question.m; path = Question/Question.m; sourceTree = "<group>"; };
 		50AB57BD18E74FD0006EE06F /* ObjectiveTrainerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ObjectiveTrainerApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50AB57C018E74FD0006EE06F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		50AB57C218E74FD0006EE06F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -198,6 +201,8 @@
 			children = (
 				50AB580218E751C0006EE06F /* QuestionModel.h */,
 				50AB580318E751C0006EE06F /* QuestionModel.m */,
+				50490D6D18EF700000E64125 /* Question.h */,
+				50490D6E18EF700000E64125 /* Question.m */,
 				50AB57FF18E751B0006EE06F /* QuestionViewController.h */,
 				50AB580018E751B0006EE06F /* QuestionViewController.m */,
 			);
@@ -351,6 +356,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				50AB580418E751C0006EE06F /* QuestionModel.m in Sources */,
+				50490D6F18EF700000E64125 /* Question.m in Sources */,
 				50AB580A18E751E5006EE06F /* MenuModel.m in Sources */,
 				50AB580D18E751FE006EE06F /* AboutViewController.m in Sources */,
 				50AB581018E75211006EE06F /* RemoveAdsViewController.m in Sources */,
@@ -570,6 +576,7 @@
 				50AB57F118E74FD0006EE06F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		50AB57F218E74FD0006EE06F /* Build configuration list for PBXNativeTarget "ObjectiveTrainerAppTests" */ = {
 			isa = XCConfigurationList;
@@ -578,6 +585,7 @@
 				50AB57F418E74FD0006EE06F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

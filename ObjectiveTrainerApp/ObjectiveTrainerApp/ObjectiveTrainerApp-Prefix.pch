@@ -15,9 +15,21 @@
     #import <Foundation/Foundation.h>
 #endif
 
-enum ScreenType {
+typedef enum ScreenType {
     ScreenTypeQuestion,
     ScreenTypeStats,
     ScreenTypeAbout,
     ScreenTypeRemoveAds
-};
+} MenuItemScreenType;
+
+typedef enum QuestionType {
+    QuestionTypeMC,
+    QuestionTypeBlank,
+    QuestionTypeImage
+} QuizQuestionType;
+
+typedef enum QuestionDifficulty {
+    QuestionDifficultyEasy,
+    QuestionDifficultyMedium,
+    QuestionDifficultyHard
+} QuizQuestionDifficulty;
