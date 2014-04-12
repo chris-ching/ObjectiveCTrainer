@@ -129,8 +129,15 @@
     
     // Set question elements
     
-    // TODO: Set Image
-    self.imageQuestionImageView.backgroundColor = [UIColor greenColor];
+    // Set Image
+    UIImage *tempImage = [UIImage imageNamed:_currentQuestion.questionImageName];
+    self.imageQuestionImageView.image = tempImage;
+
+    // Resize imageview
+    CGRect imageViewFrame = self.imageQuestionImageView.frame;
+    imageViewFrame.size.height = tempImage.size.height;
+    imageViewFrame.size.width = tempImage.size.width;
+    self.imageQuestionImageView.frame = imageViewFrame;
     
     // Create tappable part
     int tappable_x = self.imageQuestionImageView.frame.origin.x + _currentQuestion.offset_x - 10;

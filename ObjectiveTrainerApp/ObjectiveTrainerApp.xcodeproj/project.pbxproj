@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		50490D6F18EF700000E64125 /* Question.m in Sources */ = {isa = PBXBuildFile; fileRef = 50490D6E18EF700000E64125 /* Question.m */; };
+		5075B95218F8954D006253FC /* questions.json in Resources */ = {isa = PBXBuildFile; fileRef = 5075B95118F8954D006253FC /* questions.json */; };
 		50AB57C118E74FD0006EE06F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50AB57C018E74FD0006EE06F /* Foundation.framework */; };
 		50AB57C318E74FD0006EE06F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50AB57C218E74FD0006EE06F /* CoreGraphics.framework */; };
 		50AB57C518E74FD0006EE06F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50AB57C418E74FD0006EE06F /* UIKit.framework */; };
@@ -46,6 +47,7 @@
 /* Begin PBXFileReference section */
 		50490D6D18EF700000E64125 /* Question.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Question.h; path = Question/Question.h; sourceTree = "<group>"; };
 		50490D6E18EF700000E64125 /* Question.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Question.m; path = Question/Question.m; sourceTree = "<group>"; };
+		5075B95118F8954D006253FC /* questions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = questions.json; sourceTree = "<group>"; };
 		50AB57BD18E74FD0006EE06F /* ObjectiveTrainerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ObjectiveTrainerApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50AB57C018E74FD0006EE06F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		50AB57C218E74FD0006EE06F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -161,6 +163,7 @@
 		50AB57C718E74FD0006EE06F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				5075B95118F8954D006253FC /* questions.json */,
 				50AB57C818E74FD0006EE06F /* ObjectiveTrainerApp-Info.plist */,
 				50AB57C918E74FD0006EE06F /* InfoPlist.strings */,
 				50AB57CC18E74FD0006EE06F /* main.m */,
@@ -335,6 +338,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				50AB57D918E74FD0006EE06F /* Images.xcassets in Resources */,
+				5075B95218F8954D006253FC /* questions.json in Resources */,
 				50AB57CB18E74FD0006EE06F /* InfoPlist.strings in Resources */,
 				50AB57D418E74FD0006EE06F /* Main.storyboard in Resources */,
 			);
