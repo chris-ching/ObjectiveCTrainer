@@ -16,6 +16,9 @@
     UIView *_tappablePortionOfImageQuestion;
     UITapGestureRecognizer *_tapRecognizer;
     UITapGestureRecognizer *_scrollViewTapGestureRecognizer;
+    
+    ResultView *_resultView;
+    UIView *_dimmedBackground;
 }
 @end
 
@@ -53,6 +56,21 @@
     
     // Display a random question
     [self randomizeQuestionForDisplay];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    // Call super implementation
+    [super viewDidAppear:animated];
+    
+    // Create a result view
+    _resultView = [[ResultView alloc] initWithFrame:CGRectMake(10, 10, self.view.frame.size.width - 20, self.view.frame.size.height - 20)];
+    _resultView.delegate = self;
+    
+    // Create dimmed bg
+    _dimmedBackground = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    _dimmedBackground.backgroundColor = [UIColor blackColor];
+    _dimmedBackground.alpha = 0.3;
 }
 
 - (void)didReceiveMemoryWarning
@@ -161,14 +179,21 @@
     // Hide all elements
     [self hideAllQuestionElements];
     
-    // Set question elements
-    self.questionText.text = _currentQuestion.questionText;
+    // Set question image for fill in the blank question
+    UIImage *tempImage = [UIImage imageNamed:_currentQuestion.questionImageName];
+    self.imageQuestionImageView.image = tempImage;
+    
+    // Resize imageview
+    CGRect imageViewFrame = self.imageQuestionImageView.frame;
+    imageViewFrame.size.height = tempImage.size.height;
+    imageViewFrame.size.width = tempImage.size.width;
+    self.imageQuestionImageView.frame = imageViewFrame;
     
     // Adjust scrollview
     self.questionScrollView.contentSize = CGSizeMake(self.questionScrollView.frame.size.width, self.skipButton.frame.origin.y + self.skipButton.frame.size.height + 30);
     
     // Reveal question elements
-    self.questionText.hidden = NO;
+    self.imageQuestionImageView.hidden = NO;
     self.submitAnswerForBlankButton.hidden = NO;
     self.blankTextField.hidden = NO;
     self.instructionLabelForBlank.hidden = NO;
@@ -197,17 +222,35 @@
     UIButton *selectedButton = (UIButton *)sender;
     BOOL isCorrect = NO;
     
+    NSString *userAnswer = @"";
+    switch (selectedButton.tag) {
+        case 1:
+            userAnswer = _currentQuestion.questionAnswer1;
+            break;
+        case 2:
+            userAnswer = _currentQuestion.questionAnswer2;
+            break;
+        case 3:
+            userAnswer = _currentQuestion.questionAnswer3;
+            break;
+        default:
+            break;
+    }
+    
     if (selectedButton.tag == _currentQuestion.correctMCQuestionIndex)
     {
         // User got it right
         isCorrect = YES;
-        
-        // TODO: display message for correct answer
     }
     else
     {
         // User got it wrong
     }
+    
+    // Display message for answer
+    [_resultView showResultForTextQuestion:isCorrect forUserAnswer:userAnswer forQuestion:_currentQuestion];
+    [self.view addSubview:_dimmedBackground];
+    [self.view addSubview:_resultView];
     
     // Save the question data
     [self saveQuestionData:_currentQuestion.questionType withDifficulty:_currentQuestion.questionDifficulty isCorrect:isCorrect];
@@ -220,7 +263,10 @@
 {
     // User got it right
     
-    // TODO: display message for correct answer
+    // Display message for correct answer
+    [_resultView showResultForImageQuestion:YES forQuestion:_currentQuestion];
+    [self.view addSubview:_dimmedBackground];
+    [self.view addSubview:_resultView];
     
     [self saveQuestionData:_currentQuestion.questionType withDifficulty:_currentQuestion.questionDifficulty isCorrect:YES];
     
@@ -230,20 +276,31 @@
 
 - (IBAction)blankSubmitted:(id)sender
 {
+    // Retract keyboard
+    [self.blankTextField resignFirstResponder];
+    
+    // Get answer
     NSString *answer = self.blankTextField.text;
     BOOL isCorrect = NO;
     
+    // Check if answer is right
     if ([answer isEqualToString:_currentQuestion.correctAnswerForBlank])
     {
         // User got it right
         isCorrect = YES;
-        
-        // TODO: display message for correct answer
     }
     else
     {
         // User got it wrong
     }
+    
+    // Clear the text field
+    self.blankTextField.text = @"";
+    
+    // Display message for answer
+    [_resultView showResultForImageQuestion:YES forQuestion:_currentQuestion];
+    [self.view addSubview:_dimmedBackground];
+    [self.view addSubview:_resultView];
 
     // Record question data
     [self saveQuestionData:_currentQuestion.questionType withDifficulty:_currentQuestion.questionDifficulty isCorrect:isCorrect];
@@ -315,7 +372,16 @@
 
 - (void)scrollViewTapped
 {
+    // Retract keyboard
     [self.blankTextField resignFirstResponder];
+}
+
+#pragma mark Result View Delegate Methods
+
+- (void)resultViewDismissed
+{
+    [_dimmedBackground removeFromSuperview];
+    [_resultView removeFromSuperview];
 }
 
 

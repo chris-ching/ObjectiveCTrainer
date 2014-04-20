@@ -45,8 +45,20 @@
 			"x_coord" : 30,
 			"y_coord" : 150,
 			"answerimage" : "EasyImage003Answer"
-		}
+		},
+        {
+            "type" : "blank",
+            "imagename" : "EasyBlank001",
+            "answerimage" : "EasyBlank001Answer",
+            "answer" : "MyProtocol"
+        },
+        {
+            "type" : "blank",
+            "imagename" : "EasyBlank002",
+            "answerimage" : "EasyBlank002Answer",
+            "answer" : "view"
+        }
 	],
 	"medium" : [],
 	"hard" : []
-} 
+}

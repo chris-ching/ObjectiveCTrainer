@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		504376A3190332DD00491B20 /* ResultView.m in Sources */ = {isa = PBXBuildFile; fileRef = 504376A2190332DD00491B20 /* ResultView.m */; };
 		50490D6F18EF700000E64125 /* Question.m in Sources */ = {isa = PBXBuildFile; fileRef = 50490D6E18EF700000E64125 /* Question.m */; };
 		5075B95218F8954D006253FC /* questions.json in Resources */ = {isa = PBXBuildFile; fileRef = 5075B95118F8954D006253FC /* questions.json */; };
 		50AB57C118E74FD0006EE06F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50AB57C018E74FD0006EE06F /* Foundation.framework */; };
@@ -45,6 +46,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		504376A1190332DD00491B20 /* ResultView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ResultView.h; path = Question/ResultView.h; sourceTree = "<group>"; };
+		504376A2190332DD00491B20 /* ResultView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ResultView.m; path = Question/ResultView.m; sourceTree = "<group>"; };
 		50490D6D18EF700000E64125 /* Question.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Question.h; path = Question/Question.h; sourceTree = "<group>"; };
 		50490D6E18EF700000E64125 /* Question.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Question.m; path = Question/Question.m; sourceTree = "<group>"; };
 		5075B95118F8954D006253FC /* questions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = questions.json; sourceTree = "<group>"; };
@@ -208,6 +211,8 @@
 				50490D6E18EF700000E64125 /* Question.m */,
 				50AB57FF18E751B0006EE06F /* QuestionViewController.h */,
 				50AB580018E751B0006EE06F /* QuestionViewController.m */,
+				504376A1190332DD00491B20 /* ResultView.h */,
+				504376A2190332DD00491B20 /* ResultView.m */,
 			);
 			name = Question;
 			sourceTree = "<group>";
@@ -360,6 +365,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				50AB580418E751C0006EE06F /* QuestionModel.m in Sources */,
+				504376A3190332DD00491B20 /* ResultView.m in Sources */,
 				50490D6F18EF700000E64125 /* Question.m in Sources */,
 				50AB580A18E751E5006EE06F /* MenuModel.m in Sources */,
 				50AB580D18E751FE006EE06F /* AboutViewController.m in Sources */,

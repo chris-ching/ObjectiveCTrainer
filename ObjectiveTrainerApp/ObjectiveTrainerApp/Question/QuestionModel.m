@@ -110,7 +110,11 @@
         }
         else if ([jsonObject[@"type"] isEqualToString:@"blank"])
         {
-            // TODO: implement parsing of blank questions
+            // Parse out of fill in the blank questions
+            newQuestion.questionType = QuestionTypeBlank;
+            newQuestion.questionImageName = jsonObject[@"imagename"];
+            newQuestion.answerImageName = jsonObject[@"answerimage"];
+            newQuestion.correctAnswerForBlank = jsonObject[@"answer"];
         }
         
         // Add newly created question to temp array
