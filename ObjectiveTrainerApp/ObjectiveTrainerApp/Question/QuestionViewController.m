@@ -56,6 +56,22 @@
     
     // Display a random question
     [self randomizeQuestionForDisplay];
+    
+    // Add background behind status bar
+    UIView *statusBarBg = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 20)];
+    statusBarBg.backgroundColor = [UIColor colorWithRed:11/255.0 green:187/255.0 blue:115/255.0 alpha:1.0];
+    [self.view addSubview:statusBarBg];
+    
+    // Set button styles
+    UIColor *buttonBorderColor = [UIColor colorWithRed:232/255.0 green:232/255.0 blue:232/255.0 alpha:1.0];
+    
+    [self.questionMCAnswer1.layer setBorderWidth:1.0];
+    [self.questionMCAnswer2.layer setBorderWidth:1.0];
+    [self.questionMCAnswer3.layer setBorderWidth:1.0];
+    [self.questionMCAnswer1.layer setBorderColor:buttonBorderColor.CGColor];
+    [self.questionMCAnswer2.layer setBorderColor:buttonBorderColor.CGColor];
+    [self.questionMCAnswer3.layer setBorderColor:buttonBorderColor.CGColor];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -87,7 +103,6 @@
     self.questionMCAnswer3.hidden = YES;
     self.submitAnswerForBlankButton.hidden = YES;
     self.blankTextField.hidden = YES;
-    self.instructionLabelForBlank.hidden = YES;
     self.imageQuestionImageView.hidden = YES;
     
     // Remove the tappable uiview for image questions
@@ -95,6 +110,11 @@
     {
         [_tappablePortionOfImageQuestion removeFromSuperview];
     }
+}
+
+- (IBAction)menuButtonTapped:(id)sender
+{
+    [self.revealViewController revealToggleAnimated:YES];
 }
 
 #pragma mark Question Methods
@@ -196,7 +216,6 @@
     self.imageQuestionImageView.hidden = NO;
     self.submitAnswerForBlankButton.hidden = NO;
     self.blankTextField.hidden = NO;
-    self.instructionLabelForBlank.hidden = NO;
 }
 
 - (void)randomizeQuestionForDisplay

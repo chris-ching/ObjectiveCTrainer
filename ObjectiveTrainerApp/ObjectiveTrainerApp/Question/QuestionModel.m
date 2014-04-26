@@ -60,7 +60,7 @@
     NSData *myJsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     
     NSDictionary *myJsonDictionary = [NSJSONSerialization JSONObjectWithData:myJsonData options:NSJSONReadingAllowFragments error:nil];
-    
+        
     // Parse out easy questions
     NSArray *easyJsonArray = myJsonDictionary[@"easy"];
     self.easyQuestions = [self parseJsonArrayIntoQuestions:easyJsonArray forDifficulty:QuestionDifficultyEasy];
