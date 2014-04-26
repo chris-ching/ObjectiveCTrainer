@@ -112,7 +112,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Question" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Dtg-Ak-vqE">
-                                        <rect key="frame" x="20" y="19" width="118" height="21"/>
+                                        <rect key="frame" x="20" y="20" width="118" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -132,6 +132,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="1LP-Ql-QFy"/>
                     <connections>
+                        <outlet property="answerHeaderLabel" destination="QVQ-ap-YrO" id="A9g-Oc-9uv"/>
                         <outlet property="blankTextField" destination="1F2-v0-qet" id="0fk-hu-b5v"/>
                         <outlet property="imageQuestionImageView" destination="IsA-Kl-MJJ" id="LYY-tR-06T"/>
                         <outlet property="questionHeaderLabel" destination="Dtg-Ak-vqE" id="gWe-oc-4KM"/>
