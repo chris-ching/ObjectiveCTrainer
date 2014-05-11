@@ -123,9 +123,19 @@
     buttonFrame.origin.y = 2000;
     self.questionMCAnswer3.frame = buttonFrame;
     
+    // Set fill in the blank elements off the screen
     self.submitAnswerForBlankButton.hidden = YES;
+    buttonFrame = self.submitAnswerForBlankButton.frame;
+    buttonFrame.origin.y = 2000;
+    self.submitAnswerForBlankButton.frame = buttonFrame;
+    
     self.blankTextField.hidden = YES;
-    self.imageQuestionImageView.hidden = YES;
+    buttonFrame = self.blankTextField.frame;
+    buttonFrame.origin.y = 2000;
+    self.blankTextField.frame = buttonFrame;
+    
+    // Set alpha for image view to 0 so that we can fade it in
+    self.imageQuestionImageView.alpha = 0.0;
     
     // Remove the tappable uiview for image questions
     if (_tappablePortionOfImageQuestion.superview != nil)
@@ -171,6 +181,15 @@
     [self.questionMCAnswer1 setTitle:_currentQuestion.questionAnswer1 forState:UIControlStateNormal];
     [self.questionMCAnswer2 setTitle:_currentQuestion.questionAnswer2 forState:UIControlStateNormal];
     [self.questionMCAnswer3 setTitle:_currentQuestion.questionAnswer3 forState:UIControlStateNormal];
+    
+    // Set text for answer label and positioning
+    self.answerHeaderLabel.text = @"Answer";
+    
+    CGRect answerLabelFrame = self.answerHeaderLabel.frame;
+    answerLabelFrame.origin.y = 227;
+    answerLabelFrame.size.width = 280;
+    self.answerHeaderLabel.frame = answerLabelFrame;
+    [self.answerHeaderLabel sizeToFit];
     
     // Adjust scrollview
     self.questionScrollView.contentSize = CGSizeMake(self.questionScrollView.frame.size.width, self.skipButton.frame.origin.y + self.skipButton.frame.size.height + 30);
@@ -237,7 +256,7 @@
                         options:UIViewAnimationOptionCurveEaseOut
                      animations:^(void){
                          
-                         // Reveal the question and header labels
+                         // Reveal the question and answer header labels
                          self.questionHeaderLabel.alpha = 1.0;
                          self.answerHeaderLabel.alpha = 1.0;
                          
@@ -268,7 +287,7 @@
     int tappable_y = self.imageQuestionImageView.frame.origin.y + _currentQuestion.offset_y - 10;
     
     _tappablePortionOfImageQuestion = [[UIView alloc] initWithFrame:CGRectMake(tappable_x, tappable_y, 20, 20)];
-    _tappablePortionOfImageQuestion.backgroundColor = [UIColor redColor];
+    _tappablePortionOfImageQuestion.backgroundColor = [UIColor clearColor];
     
     // Create and attach gesture recognizer
     _tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageQuestionAnswered)];
@@ -277,7 +296,26 @@
     // Add tappable part
     [self.questionScrollView addSubview:_tappablePortionOfImageQuestion];
     
-    self.imageQuestionImageView.hidden = NO;
+    // Set instruction label
+    self.answerHeaderLabel.text = @"Tap on the error in the image above.";
+    
+    CGRect answerLabelFrame = self.answerHeaderLabel.frame;
+    answerLabelFrame.origin.y = self.imageQuestionImageView.frame.origin.y + self.imageQuestionImageView.frame.size.height + 20;
+    answerLabelFrame.size.width = 280;
+    self.answerHeaderLabel.frame = answerLabelFrame;
+    [self.answerHeaderLabel sizeToFit];
+    
+    // Animate the elements in
+    [UIView animateWithDuration:0.5
+                          delay:0.5
+                        options:UIViewAnimationOptionCurveEaseOut
+                     animations:^(void){
+                         
+                         // Reveal the instruction label and image
+                         self.answerHeaderLabel.alpha = 1.0;
+                         self.imageQuestionImageView.alpha = 1.0;
+                     }
+                     completion:nil];
 }
 
 - (void)displayBlankQuestion
@@ -295,13 +333,57 @@
     imageViewFrame.size.width = tempImage.size.width;
     self.imageQuestionImageView.frame = imageViewFrame;
     
+    // Set Instruction label text and Y-Offset
+    self.answerHeaderLabel.text = @"Fill in the keyword that is blurred in the image above (case-sensitive)";
+    [self.answerHeaderLabel sizeToFit];
+    
+    CGRect answerLabelFrame = self.answerHeaderLabel.frame;
+    answerLabelFrame.origin.y = self.imageQuestionImageView.frame.origin.y + self.imageQuestionImageView.frame.size.height + 20;
+    answerLabelFrame.size.width = 280;
+    self.answerHeaderLabel.frame = answerLabelFrame;
+    [self.answerHeaderLabel sizeToFit];
+    
     // Adjust scrollview
     self.questionScrollView.contentSize = CGSizeMake(self.questionScrollView.frame.size.width, self.skipButton.frame.origin.y + self.skipButton.frame.size.height + 30);
     
-    // Reveal question elements
-    self.imageQuestionImageView.hidden = NO;
+    // Animate the elements in
+    [UIView animateWithDuration:0.5
+                          delay:0.5
+                        options:UIViewAnimationOptionCurveEaseOut
+                     animations:^(void){
+                         
+                         // Reveal the instruction label and image
+                         self.answerHeaderLabel.alpha = 1.0;
+                         self.imageQuestionImageView.alpha = 1.0;
+                     }
+                     completion:nil];
+    
+    // Set hidden to NO for submit button and textbox
     self.submitAnswerForBlankButton.hidden = NO;
     self.blankTextField.hidden = NO;
+    
+    // Animate the elements in
+    [UIView animateWithDuration:1
+                          delay:0
+                        options:UIViewAnimationOptionCurveEaseOut
+                     animations:^(void){
+                         
+                         // Reveal and slide up the textbox
+                         CGRect textboxFrame = self.blankTextField.frame;
+                         
+                         textboxFrame.origin.y = self.answerHeaderLabel.frame.origin.y + self.answerHeaderLabel.frame.size.height + 20;
+                         
+                         self.blankTextField.frame = textboxFrame;
+                         
+                         // Reveal and slide up the submit button
+                         CGRect buttonFrame = self.submitAnswerForBlankButton.frame;
+                         
+                         buttonFrame.origin.y = self.answerHeaderLabel.frame.origin.y + self.answerHeaderLabel.frame.size.height + 20;
+                         
+                         self.submitAnswerForBlankButton.frame = buttonFrame;
+                         
+                     }
+                     completion:nil];
 }
 
 - (void)randomizeQuestionForDisplay
