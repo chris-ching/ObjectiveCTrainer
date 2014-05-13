@@ -20,6 +20,13 @@
 
 @property (weak, nonatomic) IBOutlet UIScrollView *questionScrollView;
 
+// Background view for question type
+@property (weak, nonatomic) IBOutlet UIView *questionStatusBackgroundView;
+@property (weak, nonatomic) IBOutlet UILabel *questionStatusLabel;
+
+// Background for answer area
+@property (weak, nonatomic) IBOutlet UIView *answerBackgroundView;
+
 // Properties for MC Questions
 @property (weak, nonatomic) IBOutlet UILabel *questionHeaderLabel;
 @property (weak, nonatomic) IBOutlet UILabel *questionText;

@@ -86,7 +86,7 @@
     // Create dimmed bg
     _dimmedBackground = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     _dimmedBackground.backgroundColor = [UIColor blackColor];
-    _dimmedBackground.alpha = 0.3;
+    _dimmedBackground.alpha = 0.4;
 }
 
 - (void)didReceiveMemoryWarning
@@ -99,37 +99,37 @@
 {
     // Hide the header elements
     self.questionHeaderLabel.alpha = 0.0;
-    self.answerHeaderLabel.alpha = 0.0;
+
+    CGRect answerHeaderLabelFrame = self.answerHeaderLabel.frame;
+    answerHeaderLabelFrame.origin.y = 2000;
+    self.answerHeaderLabel.frame = answerHeaderLabelFrame;
     
-    // Hide questionText label and position off the bottom of the screen
-    self.questionText.hidden = YES;
-    CGRect questionTextFrame = self.questionText.frame;
-    questionTextFrame.origin.y = 2000;
-    self.questionText.frame = questionTextFrame;
+    // Hide answer background
+    CGRect answerBackgroundFrame = self.answerBackgroundView.frame;
+    answerBackgroundFrame.origin.y = 2000;
+    self.answerBackgroundView.frame = answerBackgroundFrame;
+    
+    // Fade out the question text label
+    self.questionText.alpha = 0.0;
     
     // Hide answer buttons and position off screen
-    self.questionMCAnswer1.hidden = YES;
     CGRect buttonFrame = self.questionMCAnswer1.frame;
     buttonFrame.origin.y = 2000;
     self.questionMCAnswer1.frame = buttonFrame;
     
-    self.questionMCAnswer2.hidden = YES;
     buttonFrame = self.questionMCAnswer2.frame;
     buttonFrame.origin.y = 2000;
     self.questionMCAnswer2.frame = buttonFrame;
     
-    self.questionMCAnswer3.hidden = YES;
     buttonFrame = self.questionMCAnswer3.frame;
     buttonFrame.origin.y = 2000;
     self.questionMCAnswer3.frame = buttonFrame;
     
     // Set fill in the blank elements off the screen
-    self.submitAnswerForBlankButton.hidden = YES;
     buttonFrame = self.submitAnswerForBlankButton.frame;
     buttonFrame.origin.y = 2000;
     self.submitAnswerForBlankButton.frame = buttonFrame;
     
-    self.blankTextField.hidden = YES;
     buttonFrame = self.blankTextField.frame;
     buttonFrame.origin.y = 2000;
     self.blankTextField.frame = buttonFrame;
@@ -184,29 +184,22 @@
     
     // Set text for answer label and positioning
     self.answerHeaderLabel.text = @"Answer";
-    
     CGRect answerLabelFrame = self.answerHeaderLabel.frame;
-    answerLabelFrame.origin.y = 227;
     answerLabelFrame.size.width = 280;
     self.answerHeaderLabel.frame = answerLabelFrame;
     [self.answerHeaderLabel sizeToFit];
     
+    // Set question status label
+    self.questionStatusLabel.text = @"Multiple Choice";
+    
     // Adjust scrollview
     self.questionScrollView.contentSize = CGSizeMake(self.questionScrollView.frame.size.width, self.skipButton.frame.origin.y + self.skipButton.frame.size.height + 30);
-    
-    // Reveal question elements
-    self.questionText.hidden = NO;
-    self.questionMCAnswer1.hidden = NO;
-    self.questionMCAnswer2.hidden = NO;
-    self.questionMCAnswer3.hidden = NO;
     
     // Animate the labels and buttons back to their positions
     [UIView animateWithDuration:1 animations:^(void){
         
-        // Position question text
-        CGRect questionTextFrame = self.questionText.frame;
-        questionTextFrame.origin.y = 50;
-        self.questionText.frame = questionTextFrame;
+        // Fade question text in
+        self.questionText.alpha = 1.0;
         
     }];
     
@@ -219,6 +212,11 @@
                          CGRect answerButton1Frame = self.questionMCAnswer1.frame;
                          answerButton1Frame.origin.y = 259;
                          self.questionMCAnswer1.frame = answerButton1Frame;
+                         
+                         // Slide up answer background with question
+                         CGRect answerBackgroundFrame = self.answerBackgroundView.frame;
+                         answerBackgroundFrame.origin.y = 227;
+                         self.answerBackgroundView.frame = answerBackgroundFrame;
                          
                      }
                      completion:nil];
@@ -250,19 +248,6 @@
                          
                      }
                      completion:nil];
-    
-    [UIView animateWithDuration:0.5
-                          delay:1
-                        options:UIViewAnimationOptionCurveEaseOut
-                     animations:^(void){
-                         
-                         // Reveal the question and answer header labels
-                         self.questionHeaderLabel.alpha = 1.0;
-                         self.answerHeaderLabel.alpha = 1.0;
-                         
-                     }
-                     completion:nil];
-    
 }
 
 - (void)displayImageQuestion
@@ -298,12 +283,13 @@
     
     // Set instruction label
     self.answerHeaderLabel.text = @"Tap on the error in the image above.";
-    
     CGRect answerLabelFrame = self.answerHeaderLabel.frame;
-    answerLabelFrame.origin.y = self.imageQuestionImageView.frame.origin.y + self.imageQuestionImageView.frame.size.height + 20;
     answerLabelFrame.size.width = 280;
     self.answerHeaderLabel.frame = answerLabelFrame;
     [self.answerHeaderLabel sizeToFit];
+    
+    // Set question status label
+    self.questionStatusLabel.text = @"Find The Error";
     
     // Animate the elements in
     [UIView animateWithDuration:0.5
@@ -312,8 +298,26 @@
                      animations:^(void){
                          
                          // Reveal the instruction label and image
-                         self.answerHeaderLabel.alpha = 1.0;
                          self.imageQuestionImageView.alpha = 1.0;
+                     }
+                     completion:nil];
+    
+    // Reveal answer background and slide in
+    [UIView animateWithDuration:1
+                          delay:0.1
+                        options:UIViewAnimationOptionCurveEaseOut
+                     animations:^(void){
+                         
+                         // Slide up answer background with question
+                         CGRect answerBackgroundFrame = self.answerBackgroundView.frame;
+                         answerBackgroundFrame.origin.y = self.imageQuestionImageView.frame.origin.y + self.imageQuestionImageView.frame.size.height;
+                         self.answerBackgroundView.frame = answerBackgroundFrame;
+                         
+                         // Slide up answer header/instruction label
+                         CGRect answerLabelFrame = self.answerHeaderLabel.frame;
+                         answerLabelFrame.origin.y = self.imageQuestionImageView.frame.origin.y + self.imageQuestionImageView.frame.size.height + 20;
+                         self.answerHeaderLabel.frame = answerLabelFrame;
+                         
                      }
                      completion:nil];
 }
@@ -335,13 +339,13 @@
     
     // Set Instruction label text and Y-Offset
     self.answerHeaderLabel.text = @"Fill in the keyword that is blurred in the image above (case-sensitive)";
-    [self.answerHeaderLabel sizeToFit];
-    
     CGRect answerLabelFrame = self.answerHeaderLabel.frame;
-    answerLabelFrame.origin.y = self.imageQuestionImageView.frame.origin.y + self.imageQuestionImageView.frame.size.height + 20;
     answerLabelFrame.size.width = 280;
     self.answerHeaderLabel.frame = answerLabelFrame;
     [self.answerHeaderLabel sizeToFit];
+    
+    // Set question status label
+    self.questionStatusLabel.text = @"Fill In The Blank";
     
     // Adjust scrollview
     self.questionScrollView.contentSize = CGSizeMake(self.questionScrollView.frame.size.width, self.skipButton.frame.origin.y + self.skipButton.frame.size.height + 30);
@@ -353,20 +357,25 @@
                      animations:^(void){
                          
                          // Reveal the instruction label and image
-                         self.answerHeaderLabel.alpha = 1.0;
                          self.imageQuestionImageView.alpha = 1.0;
                      }
                      completion:nil];
-    
-    // Set hidden to NO for submit button and textbox
-    self.submitAnswerForBlankButton.hidden = NO;
-    self.blankTextField.hidden = NO;
     
     // Animate the elements in
     [UIView animateWithDuration:1
                           delay:0
                         options:UIViewAnimationOptionCurveEaseOut
                      animations:^(void){
+                         
+                         // Reveal and slide up the answer background
+                         CGRect answerBackgroundFrame = self.answerBackgroundView.frame;
+                         answerBackgroundFrame.origin.y = self.imageQuestionImageView.frame.origin.y + self.imageQuestionImageView.frame.size.height;
+                         self.answerBackgroundView.frame = answerBackgroundFrame;
+                         
+                         // Reveal and slide up the answer header/instruction label
+                         CGRect answerLabelFrame = self.answerHeaderLabel.frame;
+                         answerLabelFrame.origin.y = self.imageQuestionImageView.frame.origin.y + self.imageQuestionImageView.frame.size.height + 20;
+                         self.answerHeaderLabel.frame = answerLabelFrame;
                          
                          // Reveal and slide up the textbox
                          CGRect textboxFrame = self.blankTextField.frame;
@@ -381,7 +390,6 @@
                          buttonFrame.origin.y = self.answerHeaderLabel.frame.origin.y + self.answerHeaderLabel.frame.size.height + 20;
                          
                          self.submitAnswerForBlankButton.frame = buttonFrame;
-                         
                      }
                      completion:nil];
 }
@@ -400,8 +408,22 @@
 
 - (IBAction)skipButtonClicked:(id)sender
 {
-    // Randomize and display another question
-    [self randomizeQuestionForDisplay];
+    [UIView animateWithDuration:0.5
+                          delay:0
+                        options:UIViewAnimationOptionCurveEaseIn
+                     animations:^(void){
+                         
+                         [self hideAllQuestionElements];
+                         
+                     }
+                    completion:^(BOOL finished) {
+                        
+                        // Randomize and display another question
+                        [self randomizeQuestionForDisplay];
+                        
+                    }];
+    
+    
 }
 
 - (IBAction)questionMCAnswer:(id)sender
@@ -436,14 +458,9 @@
     
     // Display message for answer
     [_resultView showResultForTextQuestion:isCorrect forUserAnswer:userAnswer forQuestion:_currentQuestion];
-    [self.view addSubview:_dimmedBackground];
-    [self.view addSubview:_resultView];
     
     // Save the question data
     [self saveQuestionData:_currentQuestion.questionType withDifficulty:_currentQuestion.questionDifficulty isCorrect:isCorrect];
-    
-    // Display next question
-    [self randomizeQuestionForDisplay];
 }
 
 - (void)imageQuestionAnswered
@@ -452,13 +469,8 @@
     
     // Display message for correct answer
     [_resultView showResultForImageQuestion:YES forQuestion:_currentQuestion];
-    [self.view addSubview:_dimmedBackground];
-    [self.view addSubview:_resultView];
     
     [self saveQuestionData:_currentQuestion.questionType withDifficulty:_currentQuestion.questionDifficulty isCorrect:YES];
-    
-    // Display next question
-    [self randomizeQuestionForDisplay];
 }
 
 - (IBAction)blankSubmitted:(id)sender
@@ -486,14 +498,9 @@
     
     // Display message for answer
     [_resultView showResultForImageQuestion:YES forQuestion:_currentQuestion];
-    [self.view addSubview:_dimmedBackground];
-    [self.view addSubview:_resultView];
 
     // Record question data
     [self saveQuestionData:_currentQuestion.questionType withDifficulty:_currentQuestion.questionDifficulty isCorrect:isCorrect];
-
-    // Display next question
-    [self randomizeQuestionForDisplay];
 }
 
 - (void)saveQuestionData:(QuizQuestionType)type withDifficulty:(QuizQuestionDifficulty)difficulty isCorrect:(BOOL)correct
@@ -567,8 +574,85 @@
 
 - (void)resultViewDismissed
 {
-    [_dimmedBackground removeFromSuperview];
-    [_resultView removeFromSuperview];
+    // Animate it into view
+    [UIView animateWithDuration:0.3
+                          delay:0
+                        options:UIViewAnimationOptionCurveEaseOut
+                     animations:^(void){
+                         
+                         _dimmedBackground.alpha = 0;
+                         
+                     }
+                     completion:^(BOOL finished) {
+                         [_dimmedBackground removeFromSuperview];
+                     }];
+    
+    [UIView animateWithDuration:0.5
+                          delay:0.1
+                        options:UIViewAnimationOptionCurveEaseOut
+                     animations:^(void){
+                         
+                         CGRect resultViewFrame = _resultView.frame;
+                         resultViewFrame.origin.y = 2000;
+                         _resultView.frame = resultViewFrame;
+                         
+                     }
+                     completion:^(BOOL finished) {
+                         
+                         [UIView animateWithDuration:0.5
+                                               delay:0
+                                             options:UIViewAnimationOptionCurveEaseIn
+                                          animations:^(void){
+                                              
+                                              [self hideAllQuestionElements];
+                                              
+                                          }
+                                          completion:^(BOOL finished) {
+                                              
+                                              // Display next question
+                                              [self randomizeQuestionForDisplay];
+                                              
+                                          }];
+                          [_resultView removeFromSuperview];
+                     }];
+}
+
+- (void)resultViewHeightDetermined
+{
+    // Fade in dimmed background
+    _dimmedBackground.alpha = 0;
+    
+    [self.view addSubview:_dimmedBackground];
+    
+    // Position result view below screen
+    CGRect resultViewFrame = _resultView.frame;
+    resultViewFrame.origin.y = 2000;
+    _resultView.frame = resultViewFrame;
+    
+    [self.view addSubview:_resultView];
+    
+    // Animate it into view
+    [UIView animateWithDuration:0.3
+                          delay:0
+                        options:UIViewAnimationOptionCurveEaseOut
+                     animations:^(void){
+                         
+                         _dimmedBackground.alpha = 0.4;
+                         
+                     }
+                     completion:nil];
+    
+    [UIView animateWithDuration:0.5
+                          delay:0.1
+                        options:UIViewAnimationOptionCurveEaseOut
+                     animations:^(void){
+                         
+                         CGRect resultViewFrame = _resultView.frame;
+                         resultViewFrame.origin.y = (self.view.frame.size.height - _resultView.frame.size.height)/2;
+                         _resultView.frame = resultViewFrame;
+                         
+                     }
+                     completion:nil];
 }
 
 
