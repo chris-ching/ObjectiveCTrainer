@@ -10,8 +10,9 @@
 #import "QuestionModel.h"
 #import "Question.h"
 #import "ResultView.h"
+#import <iAd/iAd.h>
 
-@interface QuestionViewController : UIViewController<ResultViewProtocol>
+@interface QuestionViewController : UIViewController<ResultViewProtocol, ADBannerViewDelegate>
 
 @property (strong, nonatomic) QuestionModel *model;
 @property (strong, nonatomic) NSArray *questions;

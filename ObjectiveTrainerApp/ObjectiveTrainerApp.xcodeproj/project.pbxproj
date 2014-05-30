@@ -34,6 +34,7 @@
 		50AB581318E75221006EE06F /* StatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50AB581218E75221006EE06F /* StatsViewController.m */; };
 		50AB581618E7522F006EE06F /* StatsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 50AB581518E7522F006EE06F /* StatsModel.m */; };
 		50AB581918E75799006EE06F /* MenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 50AB581818E75799006EE06F /* MenuItem.m */; };
+		50B5CDD11938E401008016A9 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50B5CDD01938E401008016A9 /* iAd.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +91,7 @@
 		50AB581518E7522F006EE06F /* StatsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StatsModel.m; path = Stats/StatsModel.m; sourceTree = "<group>"; };
 		50AB581718E75799006EE06F /* MenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MenuItem.h; path = Menu/MenuItem.h; sourceTree = "<group>"; };
 		50AB581818E75799006EE06F /* MenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MenuItem.m; path = Menu/MenuItem.m; sourceTree = "<group>"; };
+		50B5CDD01938E401008016A9 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50B5CDD11938E401008016A9 /* iAd.framework in Frameworks */,
 				504376A51904070B00491B20 /* MessageUI.framework in Frameworks */,
 				50AB57C318E74FD0006EE06F /* CoreGraphics.framework in Frameworks */,
 				50AB57C518E74FD0006EE06F /* UIKit.framework in Frameworks */,
@@ -139,6 +142,7 @@
 		50AB57BF18E74FD0006EE06F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				50B5CDD01938E401008016A9 /* iAd.framework */,
 				504376A41904070B00491B20 /* MessageUI.framework */,
 				50AB57C018E74FD0006EE06F /* Foundation.framework */,
 				50AB57C218E74FD0006EE06F /* CoreGraphics.framework */,

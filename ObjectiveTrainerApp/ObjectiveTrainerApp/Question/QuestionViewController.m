@@ -19,6 +19,10 @@
     
     ResultView *_resultView;
     UIView *_dimmedBackground;
+    
+    // Banner
+    ADBannerView *_adView;
+    BOOL _bannerIsVisible;
 }
 @end
 
@@ -87,6 +91,10 @@
     _dimmedBackground = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     _dimmedBackground.backgroundColor = [UIColor blackColor];
     _dimmedBackground.alpha = 0.4;
+    
+    // Create iAd banner and place at bottom
+    _adView = [[ADBannerView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, 320, 50)];
+    _adView.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning
@@ -655,5 +663,56 @@
                      completion:nil];
 }
 
+#pragma mark iAd Delegate Methods
+
+- (void)bannerViewDidLoadAd:(ADBannerView *)banner
+{
+    // Banner was successfully retrieve. Show ad if ad is not visible
+    if (!_bannerIsVisible)
+    {
+        // Add the banner into the view
+        if (_adView.superview == nil)
+        {
+            [self.view addSubview:_adView];
+        }
+        
+        // Animate it into view
+        [UIView beginAnimations:@"animateAdBannerOn" context:NULL];
+        
+        // Assumes the banner view is just off the bottom of the screen.
+        _adView.frame = CGRectOffset(_adView.frame, 0, -_adView.frame.size.height);
+        
+        // Adjust scrollview height so it doesn't get covered by the banner
+        CGRect scrollViewFrame = self.questionScrollView.frame;
+        scrollViewFrame.size.height = scrollViewFrame.size.height - _adView.frame.size.height;
+        self.questionScrollView.frame = scrollViewFrame;
+        
+        [UIView commitAnimations];
+        
+        // Set flag
+        _bannerIsVisible = YES;
+    }
+}
+
+- (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error
+{
+    // Banner failed to be retrieved. Remove ad if shown
+    if (_bannerIsVisible)
+    {
+        [UIView beginAnimations:@"animateAdBannerOff" context:NULL];
+        
+        // Assumes the banner view is placed at the bottom of the screen.
+        banner.frame = CGRectOffset(banner.frame, 0, banner.frame.size.height);
+        
+        // Adjust scrollview height to be the full height of the view again
+        CGRect scrollViewFrame = self.questionScrollView.frame;
+        scrollViewFrame.size.height = self.view.frame.size.height;
+        self.questionScrollView.frame = scrollViewFrame;
+        
+        [UIView commitAnimations];
+        
+        _bannerIsVisible = NO;
+    }
+}
 
 @end
