@@ -11,6 +11,8 @@
 
 @implementation MenuModel
 
+#pragma mark Retrieve Menu Items
+
 - (NSArray *)getMenuItems
 {
     NSMutableArray *menuItemArray = [[NSMutableArray alloc] init];
@@ -45,11 +47,19 @@
     item5.screenType = ScreenTypeAbout;
     [menuItemArray addObject:item5];
     
-    MenuItem *item6 = [[MenuItem alloc] init];
-    item6.menuTitle = @"Remove Ads";
-    item6.menuIcon = @"RemoveAdsIcon";
-    item6.screenType = ScreenTypeRemoveAds;
-    [menuItemArray addObject:item6];
+    
+    // Check flag to see if we should show ad
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *flag = [defaults objectForKey:@"removeads"];
+    if (![flag isEqualToString:@"bought"])
+    {
+        MenuItem *item6 = [[MenuItem alloc] init];
+        item6.menuTitle = @"Remove Ads";
+        item6.menuIcon = @"RemoveAdsIcon";
+        item6.screenType = ScreenTypeRemoveAds;
+        [menuItemArray addObject:item6];
+    }
+    
     
     return menuItemArray;
 }

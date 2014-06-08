@@ -92,9 +92,16 @@
     _dimmedBackground.backgroundColor = [UIColor blackColor];
     _dimmedBackground.alpha = 0.4;
     
-    // Create iAd banner and place at bottom
-    _adView = [[ADBannerView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, 320, 50)];
-    _adView.delegate = self;
+    // Check flag to see if we should show ad
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    NSString *flag = [defaults objectForKey:@"removeads"];
+    if (![flag isEqualToString:@"bought"])
+    {
+        // Create iAd banner and place at bottom
+        _adView = [[ADBannerView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, 320, 50)];
+        _adView.delegate = self;
+    }
 }
 
 - (void)didReceiveMemoryWarning
