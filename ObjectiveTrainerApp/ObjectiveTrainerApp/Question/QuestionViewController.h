@@ -21,6 +21,13 @@
 
 @property (weak, nonatomic) IBOutlet UIScrollView *questionScrollView;
 
+// Question Status Bar
+@property (weak, nonatomic) IBOutlet UIImageView *statusBarBackground;
+@property (weak, nonatomic) IBOutlet UILabel *statusBarQuestionTypeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *statusBarQuestionDifficultyLabel;
+@property (weak, nonatomic) IBOutlet UILabel *statusBarScoreLabel;
+
+
 // Background view for question type
 @property (weak, nonatomic) IBOutlet UIView *questionStatusBackgroundView;
 @property (weak, nonatomic) IBOutlet UILabel *questionStatusLabel;
@@ -32,8 +39,13 @@
 @property (weak, nonatomic) IBOutlet UILabel *questionHeaderLabel;
 @property (weak, nonatomic) IBOutlet UILabel *questionText;
 @property (weak, nonatomic) IBOutlet UIButton *questionMCAnswer1;
+@property (weak, nonatomic) IBOutlet UIView *questionMCAnswer1Bullet;
+
 @property (weak, nonatomic) IBOutlet UIButton *questionMCAnswer2;
+@property (weak, nonatomic) IBOutlet UIView *questionMCAnswer2Bullet;
 @property (weak, nonatomic) IBOutlet UIButton *questionMCAnswer3;
+@property (weak, nonatomic) IBOutlet UIView *questionMCAnswer3Bullet;
+
 @property (weak, nonatomic) IBOutlet UILabel *answerHeaderLabel;
 
 // Properties for Blank Questions

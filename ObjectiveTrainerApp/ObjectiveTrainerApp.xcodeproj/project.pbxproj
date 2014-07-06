@@ -333,6 +333,9 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = CodeWithChris;
 				TargetAttributes = {
+					50AB57BC18E74FD0006EE06F = {
+						DevelopmentTeam = RYRJQ978K4;
+					};
 					50AB57DD18E74FD0006EE06F = {
 						TestTargetID = 50AB57BC18E74FD0006EE06F;
 					};
@@ -526,11 +529,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Christopher Ching (47L343472X)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Christopher Ching (RYRJQ978K4)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Christopher Ching (RYRJQ978K4)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ObjectiveTrainerApp/ObjectiveTrainerApp-Prefix.pch";
 				INFOPLIST_FILE = "ObjectiveTrainerApp/ObjectiveTrainerApp-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "94E69343-F893-4C0E-A4B7-C160C97AA618";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -540,11 +545,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Christopher Ching (47L343472X)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Christopher Ching (RYRJQ978K4)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Christopher Ching (RYRJQ978K4)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ObjectiveTrainerApp/ObjectiveTrainerApp-Prefix.pch";
 				INFOPLIST_FILE = "ObjectiveTrainerApp/ObjectiveTrainerApp-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "94E69343-F893-4C0E-A4B7-C160C97AA618";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
