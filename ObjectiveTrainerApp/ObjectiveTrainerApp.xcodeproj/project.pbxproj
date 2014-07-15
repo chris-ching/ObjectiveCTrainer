@@ -36,6 +36,8 @@
 		50AB581918E75799006EE06F /* MenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 50AB581818E75799006EE06F /* MenuItem.m */; };
 		50B5CDD11938E401008016A9 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50B5CDD01938E401008016A9 /* iAd.framework */; };
 		50B5CE1619422B4F008016A9 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50B5CE1519422B4F008016A9 /* StoreKit.framework */; };
+		50DB83C9196F1D71002BCD4D /* MenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 50DB83C7196F1D71002BCD4D /* MenuTableViewCell.m */; };
+		50DB83CA196F1D71002BCD4D /* MenuTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50DB83C8196F1D71002BCD4D /* MenuTableViewCell.xib */; };
 		50EEE82419426A8500F9FFE7 /* StoreKitHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EEE82319426A8500F9FFE7 /* StoreKitHelper.m */; };
 		50EEE8251942CA5400F9FFE7 /* product_ids.plist in Resources */ = {isa = PBXBuildFile; fileRef = 50EEE82019426A3100F9FFE7 /* product_ids.plist */; };
 /* End PBXBuildFile section */
@@ -96,6 +98,9 @@
 		50AB581818E75799006EE06F /* MenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MenuItem.m; path = Menu/MenuItem.m; sourceTree = "<group>"; };
 		50B5CDD01938E401008016A9 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		50B5CE1519422B4F008016A9 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		50DB83C6196F1D71002BCD4D /* MenuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MenuTableViewCell.h; path = Menu/MenuTableViewCell.h; sourceTree = "<group>"; };
+		50DB83C7196F1D71002BCD4D /* MenuTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MenuTableViewCell.m; path = Menu/MenuTableViewCell.m; sourceTree = "<group>"; };
+		50DB83C8196F1D71002BCD4D /* MenuTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MenuTableViewCell.xib; path = Menu/MenuTableViewCell.xib; sourceTree = "<group>"; };
 		50EEE82019426A3100F9FFE7 /* product_ids.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = product_ids.plist; sourceTree = "<group>"; };
 		50EEE82219426A8500F9FFE7 /* StoreKitHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StoreKitHelper.h; path = Helpers/StoreKitHelper.h; sourceTree = "<group>"; };
 		50EEE82319426A8500F9FFE7 /* StoreKitHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StoreKitHelper.m; path = Helpers/StoreKitHelper.m; sourceTree = "<group>"; };
@@ -255,6 +260,9 @@
 				50AB581818E75799006EE06F /* MenuItem.m */,
 				50AB580518E751D7006EE06F /* MenuViewController.h */,
 				50AB580618E751D7006EE06F /* MenuViewController.m */,
+				50DB83C6196F1D71002BCD4D /* MenuTableViewCell.h */,
+				50DB83C7196F1D71002BCD4D /* MenuTableViewCell.m */,
+				50DB83C8196F1D71002BCD4D /* MenuTableViewCell.xib */,
 			);
 			name = Menu;
 			sourceTree = "<group>";
@@ -365,6 +373,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50DB83CA196F1D71002BCD4D /* MenuTableViewCell.xib in Resources */,
 				50AB57D918E74FD0006EE06F /* Images.xcassets in Resources */,
 				5075B95218F8954D006253FC /* questions.json in Resources */,
 				50AB57CB18E74FD0006EE06F /* InfoPlist.strings in Resources */,
@@ -394,6 +403,7 @@
 				50AB580A18E751E5006EE06F /* MenuModel.m in Sources */,
 				50AB580D18E751FE006EE06F /* AboutViewController.m in Sources */,
 				50AB581018E75211006EE06F /* RemoveAdsViewController.m in Sources */,
+				50DB83C9196F1D71002BCD4D /* MenuTableViewCell.m in Sources */,
 				50AB580718E751D7006EE06F /* MenuViewController.m in Sources */,
 				50AB57D118E74FD0006EE06F /* AppDelegate.m in Sources */,
 				50AB581318E75221006EE06F /* StatsViewController.m in Sources */,

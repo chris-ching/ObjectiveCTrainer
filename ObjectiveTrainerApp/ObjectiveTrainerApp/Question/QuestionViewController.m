@@ -511,8 +511,32 @@
                         [self randomizeQuestionForDisplay];
                         
                     }];
+    /*
+    UIImageView *newBg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"MedQuestionBackground"]];
+    UIImageView *oldBg = (UIImageView*)self.view.subviews[0];
+    [self.view insertSubview:newBg belowSubview:oldBg];
     
-    
+    [UIView animateWithDuration:1
+                          delay:0
+                        options:UIViewAnimationOptionCurveEaseIn
+                     animations:^(void){
+                         
+                         oldBg.alpha = 0.0;
+                         CGRect frame = oldBg.frame;
+                         frame.origin.x += 50;
+                         frame.origin.y += 50;
+                         oldBg.frame = frame;
+                         //newBg.alpha = 1.0;
+                         
+                         
+                     }
+                     completion:^(BOOL finished) {
+                         
+                         // Randomize and display another question
+                         [self randomizeQuestionForDisplay];
+                         
+                         [oldBg removeFromSuperview];
+                     }];*/
 }
 
 - (IBAction)questionMCAnswer:(id)sender
