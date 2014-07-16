@@ -68,7 +68,7 @@
     [super viewDidAppear:animated];
     
     // Create a result view
-    _resultView = [[ResultView alloc] initWithFrame:CGRectMake(10, 10, self.view.frame.size.width - 20, self.view.frame.size.height - 20)];
+    _resultView = [[ResultView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     _resultView.delegate = self;
     
     // Create dimmed bg
@@ -145,6 +145,8 @@
     buttonFrame = self.blankTextField.frame;
     buttonFrame.origin.y = 2000;
     self.blankTextField.frame = buttonFrame;
+    
+    self.submittedAnswerLabel.alpha = 0;
     
     // Set alpha for image view to 0 so that we can fade it in
     self.imageQuestionImageView.alpha = 0.0;
@@ -226,11 +228,13 @@
                      animations:^(void){
                      
                          // Position answer 1 text
+                         self.questionMCAnswer1.alpha = 1;
                          CGRect answerButton1Frame = self.questionMCAnswer1.frame;
                          answerButton1Frame.origin.y = 218;
                          self.questionMCAnswer1.frame = answerButton1Frame;
                          
                          // Position answer background
+                         self.questionMCAnswer1Bullet.alpha = 1;
                          CGRect answerButtonBullet1Frame = self.questionMCAnswer1Bullet.frame;
                          answerButtonBullet1Frame.origin.y = 218;
                          self.questionMCAnswer1Bullet.frame = answerButtonBullet1Frame;
@@ -246,10 +250,12 @@
                      animations:^(void){
                          
                          // Position answer 2 text
+                         self.questionMCAnswer2.alpha = 1;
                          CGRect answerButton2Frame = self.questionMCAnswer2.frame;
                          answerButton2Frame.origin.y = 322;
                          self.questionMCAnswer2.frame = answerButton2Frame;
                          
+                         self.questionMCAnswer2Bullet.alpha = 1;
                          CGRect answerButtonBullet2Frame = self.questionMCAnswer2Bullet.frame;
                          answerButtonBullet2Frame.origin.y = 322;
                          self.questionMCAnswer2Bullet.frame = answerButtonBullet2Frame;
@@ -264,10 +270,12 @@
                      animations:^(void){
                          
                          // Position answer 3 text
+                         self.questionMCAnswer3.alpha = 1;
                          CGRect answerButton3Frame = self.questionMCAnswer3.frame;
                          answerButton3Frame.origin.y = 426;
                          self.questionMCAnswer3.frame = answerButton3Frame;
                          
+                         self.questionMCAnswer3Bullet.alpha = 1;
                          CGRect answerButtonBullet3Frame = self.questionMCAnswer3Bullet.frame;
                          answerButtonBullet3Frame.origin.y = 426;
                          self.questionMCAnswer3Bullet.frame = answerButtonBullet3Frame;
@@ -448,11 +456,13 @@
                          self.answerHeaderLabel.frame = answerLabelFrame;
                          
                          // Reveal and slide up the textbox
+                         self.blankTextField.alpha = 1;
                          CGRect textboxFrame = self.blankTextField.frame;
                          textboxFrame.origin.y = 400;
                          self.blankTextField.frame = textboxFrame;
                          
                          // Reveal and slide up the submit button
+                         self.submitAnswerForBlankButton.alpha = 1;
                          CGRect buttonFrame = self.submitAnswerForBlankButton.frame;
                          buttonFrame.origin.y = 400;
                          self.submitAnswerForBlankButton.frame = buttonFrame;
@@ -497,6 +507,9 @@
 
 - (IBAction)skipButtonClicked:(id)sender
 {
+    // When skip/next button is tapped, make sure title is Skip
+    [self.skipButton setTitle:@"Skip" forState:UIControlStateNormal];
+    
     [UIView animateWithDuration:0.5
                           delay:0
                         options:UIViewAnimationOptionCurveEaseIn
@@ -544,6 +557,7 @@
     UIButton *selectedButton = (UIButton *)sender;
     BOOL isCorrect = NO;
     
+    /*
     NSString *userAnswer = @"";
     switch (selectedButton.tag) {
         case 1:
@@ -557,7 +571,7 @@
             break;
         default:
             break;
-    }
+    }*/
     
     if (selectedButton.tag == _currentQuestion.correctMCQuestionIndex)
     {
@@ -569,19 +583,54 @@
         // User got it wrong
     }
     
+    // Animate and fade out the incorrect answers
+    [UIView animateWithDuration:0.5
+                     animations:^(void){
+                         
+                         if (_currentQuestion.correctMCQuestionIndex != 1)
+                         {
+                             self.questionMCAnswer1.alpha = 0;
+                             self.questionMCAnswer1Bullet.alpha = 0;
+                         }
+                         
+                         if (_currentQuestion.correctMCQuestionIndex != 2)
+                         {
+                             self.questionMCAnswer2.alpha = 0;
+                             self.questionMCAnswer2Bullet.alpha = 0;
+                         }
+                         
+                         if (_currentQuestion.correctMCQuestionIndex != 3)
+                         {
+                             self.questionMCAnswer3.alpha = 0;
+                             self.questionMCAnswer3Bullet.alpha = 0;
+                         }
+                         
+                     }];
+    
     // Display message for answer
-    [_resultView showResultForTextQuestion:isCorrect forUserAnswer:userAnswer forQuestion:_currentQuestion];
+    //[_resultView showResultForTextQuestion:isCorrect forUserAnswer:userAnswer forQuestion:_currentQuestion];
+    
+    self.questionText.text = isCorrect ? @"Correct!" : @"Incorrect";
     
     // Save the question data
     [self saveQuestionData:_currentQuestion.questionType withDifficulty:_currentQuestion.questionDifficulty isCorrect:isCorrect];
+    
+    // Change skip to next
+    [self.skipButton setTitle:@"Next" forState:UIControlStateNormal];
 }
 
 - (void)imageQuestionAnswered
 {
     // User got it right
     
+    // Create point to show the spotlight
+    int tappable_x = self.imageQuestionImageView.frame.origin.x + _currentQuestion.offset_x - 10;
+    int tappable_y = self.imageQuestionImageView.frame.origin.y + _currentQuestion.offset_y - 10;
+    CGPoint spotlight = CGPointMake(tappable_x, tappable_y);
+    
     // Display message for correct answer
-    [_resultView showResultForImageQuestion:YES forQuestion:_currentQuestion];
+    [self.view addSubview:_resultView];
+    [_resultView showImageResultAt:spotlight forResult:@"Correct"];
     
     [self saveQuestionData:_currentQuestion.questionType withDifficulty:_currentQuestion.questionDifficulty isCorrect:YES];
 }
@@ -593,6 +642,15 @@
     
     // Get answer
     NSString *answer = self.blankTextField.text;
+    
+    // Hide the text box and go button
+    self.blankTextField.alpha = 0;
+    self.submitAnswerForBlankButton.alpha = 0;
+    
+    // Show submitted answer label
+    self.submittedAnswerLabel.text = answer;
+    self.submittedAnswerLabel.alpha = 1;
+    
     BOOL isCorrect = NO;
     
     // Check if answer is right
@@ -610,10 +668,15 @@
     self.blankTextField.text = @"";
     
     // Display message for answer
-    [_resultView showResultForImageQuestion:YES forQuestion:_currentQuestion];
+    // [_resultView showResultForImageQuestion:YES forQuestion:_currentQuestion];
+    
+    self.questionText.text = isCorrect ? @"Correct!" : [NSString stringWithFormat:@"Incorrect: \n %@", _currentQuestion.correctAnswerForBlank];
 
     // Record question data
     [self saveQuestionData:_currentQuestion.questionType withDifficulty:_currentQuestion.questionDifficulty isCorrect:isCorrect];
+    
+    // Change skip button to next button
+    [self.skipButton setTitle:@"Next" forState:UIControlStateNormal];
 }
 
 - (void)saveQuestionData:(QuizQuestionType)type withDifficulty:(QuizQuestionDifficulty)difficulty isCorrect:(BOOL)correct
@@ -637,12 +700,12 @@
     }
     
     // Record that they answered an Image question
-    int questionsAnsweredByType = [userDefaults integerForKey:[NSString stringWithFormat:@"%@QuestionsAnswered", keyToSaveForType]];
+    int questionsAnsweredByType = (int)[userDefaults integerForKey:[NSString stringWithFormat:@"%@QuestionsAnswered", keyToSaveForType]];
     questionsAnsweredByType++;
     [userDefaults setInteger:questionsAnsweredByType forKey:[NSString stringWithFormat:@"%@QuestionsAnswered", keyToSaveForType]];
     
     // Record that they answered an Image question correctly
-    int questionsAnsweredCorrectlyByType = [userDefaults integerForKey:[NSString stringWithFormat:@"%@QuestionsAnsweredCorrectly", keyToSaveForType]];
+    int questionsAnsweredCorrectlyByType = (int)[userDefaults integerForKey:[NSString stringWithFormat:@"%@QuestionsAnsweredCorrectly", keyToSaveForType]];
     questionsAnsweredCorrectlyByType++;
     [userDefaults setInteger:questionsAnsweredCorrectlyByType forKey:[NSString stringWithFormat:@"%@QuestionsAnsweredCorrectly", keyToSaveForType]];
     
@@ -662,13 +725,13 @@
         keyToSaveForDifficulty = @"Hard";
     }
     
-    int questionAnsweredWithDifficulty = [userDefaults integerForKey:[NSString stringWithFormat:@"%@QuestionsAnswered", keyToSaveForDifficulty]];
+    int questionAnsweredWithDifficulty = (int)[userDefaults integerForKey:[NSString stringWithFormat:@"%@QuestionsAnswered", keyToSaveForDifficulty]];
     questionAnsweredWithDifficulty++;
     [userDefaults setInteger:questionAnsweredWithDifficulty forKey:[NSString stringWithFormat:@"%@QuestionsAnswered", keyToSaveForDifficulty]];
     
     if (correct)
     {
-        int questionAnsweredCorrectlyWithDifficulty = [userDefaults integerForKey:[NSString stringWithFormat:@"%@QuestionsAnsweredCorrectly", keyToSaveForDifficulty]];
+        int questionAnsweredCorrectlyWithDifficulty = (int)[userDefaults integerForKey:[NSString stringWithFormat:@"%@QuestionsAnsweredCorrectly", keyToSaveForDifficulty]];
         questionAnsweredCorrectlyWithDifficulty++;
         [userDefaults setInteger:questionAnsweredCorrectlyWithDifficulty forKey:[NSString stringWithFormat:@"%@QuestionsAnsweredCorrectly", keyToSaveForDifficulty]];
     }
@@ -687,27 +750,12 @@
 
 - (void)resultViewDismissed
 {
-    // Animate it into view
     [UIView animateWithDuration:0.3
                           delay:0
                         options:UIViewAnimationOptionCurveEaseOut
                      animations:^(void){
                          
-                         _dimmedBackground.alpha = 0;
-                         
-                     }
-                     completion:^(BOOL finished) {
-                         [_dimmedBackground removeFromSuperview];
-                     }];
-    
-    [UIView animateWithDuration:0.5
-                          delay:0.1
-                        options:UIViewAnimationOptionCurveEaseOut
-                     animations:^(void){
-                         
-                         CGRect resultViewFrame = _resultView.frame;
-                         resultViewFrame.origin.y = 2000;
-                         _resultView.frame = resultViewFrame;
+                         _resultView.alpha = 0;
                          
                      }
                      completion:^(BOOL finished) {

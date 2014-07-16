@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "MenuModel.h"
 #import "MenuItem.h"
+#import "RemoveAdsView.h"
 
-@interface MenuViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
+@interface MenuViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, RemoveAdsViewProtocol>
 
 @property (strong, nonatomic) MenuModel *model;
 @property (strong, nonatomic) NSArray *menuItems;

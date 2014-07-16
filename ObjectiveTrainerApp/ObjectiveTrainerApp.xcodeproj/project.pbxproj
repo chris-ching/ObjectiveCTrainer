@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		50268C3A19759CE0004079D3 /* FXBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50268C3919759CE0004079D3 /* FXBlurView.m */; };
+		50268C3C19759CFA004079D3 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50268C3B19759CFA004079D3 /* Accelerate.framework */; };
+		50268C3F1975A019004079D3 /* RemoveAdsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50268C3E1975A019004079D3 /* RemoveAdsView.m */; };
 		504376A3190332DD00491B20 /* ResultView.m in Sources */ = {isa = PBXBuildFile; fileRef = 504376A2190332DD00491B20 /* ResultView.m */; };
 		504376A51904070B00491B20 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 504376A41904070B00491B20 /* MessageUI.framework */; };
 		50490D6F18EF700000E64125 /* Question.m in Sources */ = {isa = PBXBuildFile; fileRef = 50490D6E18EF700000E64125 /* Question.m */; };
@@ -53,6 +56,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		50268C3819759CE0004079D3 /* FXBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FXBlurView.h; path = Helpers/FXBlurView.h; sourceTree = "<group>"; };
+		50268C3919759CE0004079D3 /* FXBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FXBlurView.m; path = Helpers/FXBlurView.m; sourceTree = "<group>"; };
+		50268C3B19759CFA004079D3 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		50268C3D1975A019004079D3 /* RemoveAdsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RemoveAdsView.h; path = RemoveAds/RemoveAdsView.h; sourceTree = "<group>"; };
+		50268C3E1975A019004079D3 /* RemoveAdsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RemoveAdsView.m; path = RemoveAds/RemoveAdsView.m; sourceTree = "<group>"; };
 		504376A1190332DD00491B20 /* ResultView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ResultView.h; path = Question/ResultView.h; sourceTree = "<group>"; };
 		504376A2190332DD00491B20 /* ResultView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ResultView.m; path = Question/ResultView.m; sourceTree = "<group>"; };
 		504376A41904070B00491B20 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -111,6 +119,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50268C3C19759CFA004079D3 /* Accelerate.framework in Frameworks */,
 				50B5CE1619422B4F008016A9 /* StoreKit.framework in Frameworks */,
 				50B5CDD11938E401008016A9 /* iAd.framework in Frameworks */,
 				504376A51904070B00491B20 /* MessageUI.framework in Frameworks */,
@@ -155,6 +164,7 @@
 		50AB57BF18E74FD0006EE06F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				50268C3B19759CFA004079D3 /* Accelerate.framework */,
 				50B5CE1519422B4F008016A9 /* StoreKit.framework */,
 				50B5CDD01938E401008016A9 /* iAd.framework */,
 				504376A41904070B00491B20 /* MessageUI.framework */,
@@ -281,6 +291,8 @@
 			children = (
 				50AB580E18E75211006EE06F /* RemoveAdsViewController.h */,
 				50AB580F18E75211006EE06F /* RemoveAdsViewController.m */,
+				50268C3D1975A019004079D3 /* RemoveAdsView.h */,
+				50268C3E1975A019004079D3 /* RemoveAdsView.m */,
 			);
 			name = RemoveAds;
 			sourceTree = "<group>";
@@ -288,6 +300,8 @@
 		50AB57FB18E750F4006EE06F /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				50268C3819759CE0004079D3 /* FXBlurView.h */,
+				50268C3919759CE0004079D3 /* FXBlurView.m */,
 				50EEE82219426A8500F9FFE7 /* StoreKitHelper.h */,
 				50EEE82319426A8500F9FFE7 /* StoreKitHelper.m */,
 			);
@@ -404,9 +418,11 @@
 				50AB580D18E751FE006EE06F /* AboutViewController.m in Sources */,
 				50AB581018E75211006EE06F /* RemoveAdsViewController.m in Sources */,
 				50DB83C9196F1D71002BCD4D /* MenuTableViewCell.m in Sources */,
+				50268C3A19759CE0004079D3 /* FXBlurView.m in Sources */,
 				50AB580718E751D7006EE06F /* MenuViewController.m in Sources */,
 				50AB57D118E74FD0006EE06F /* AppDelegate.m in Sources */,
 				50AB581318E75221006EE06F /* StatsViewController.m in Sources */,
+				50268C3F1975A019004079D3 /* RemoveAdsView.m in Sources */,
 				50EEE82419426A8500F9FFE7 /* StoreKitHelper.m in Sources */,
 				50AB57CD18E74FD0006EE06F /* main.m in Sources */,
 				50AB581618E7522F006EE06F /* StatsModel.m in Sources */,

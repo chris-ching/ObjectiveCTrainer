@@ -51,6 +51,7 @@
 // Properties for Blank Questions
 @property (weak, nonatomic) IBOutlet UIButton *submitAnswerForBlankButton;
 @property (weak, nonatomic) IBOutlet UITextField *blankTextField;
+@property (weak, nonatomic) IBOutlet UILabel *submittedAnswerLabel;
 
 // Properties for Image Questions
 @property (weak, nonatomic) IBOutlet UIImageView *imageQuestionImageView;

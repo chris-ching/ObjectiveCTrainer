@@ -9,9 +9,14 @@
 #import "MenuViewController.h"
 #import "SWRevealViewController.h"
 #import "MenuTableViewCell.h"
+#import "FXBlurView.h"
 
 @interface MenuViewController ()
-
+{
+    UIAlertView *_resetPromptAlert;
+    FXBlurView *_blurView;
+    RemoveAdsView *_removeAdsView;
+}
 @end
 
 @implementation MenuViewController
@@ -69,7 +74,7 @@
     int totalCorrect = easyQuestionsCorrect + mediumQuestionsCorrect + hardQuestionsCorrect;
     int totalAttempted = easyQuestionsAnswered + mediumQuestionsAnswered + hardmQuestionsAnswered;
     
-    int totalScore = ((float)totalCorrect/(float)totalAttempted) * 100;
+    int totalScore = (totalAttempted == 0) ? 0 : ((float)totalCorrect/(float)totalAttempted) * 100;
     
     // Set labels
     self.attemptedLabel.text = [NSString stringWithFormat:@"Total Attempted %i", totalAttempted];
@@ -154,13 +159,87 @@
 
 #pragma mark Button Methods
 
-- (IBAction)ResetButtonTapped:(id)sender {
+- (IBAction)ResetButtonTapped:(id)sender
+{
+    if (_resetPromptAlert == nil)
+    {
+        _resetPromptAlert = [[UIAlertView alloc] initWithTitle:@"Reset Confirmation" message:@"Are you sure you want to reset the stats?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+    }
+    
+    [_resetPromptAlert show];
 }
 
-- (IBAction)RemoveAdsButtonTapped:(id)sender {
+- (IBAction)RemoveAdsButtonTapped:(id)sender
+{
+    // Create a new blur view if we haven't done so already
+    if (_blurView == nil)
+    {
+        _blurView = [[FXBlurView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    }
+    
+    // Set blur view properties
+    _blurView.blurRadius = 15.0;
+    _blurView.tintColor = [UIColor clearColor];
+    
+    // Add blur view
+    [self.revealViewController.view addSubview:_blurView];
+    
+    // Create a new remove ads view if we haven't done so already
+    if (_removeAdsView == nil)
+    {
+        _removeAdsView = [[RemoveAdsView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+        _removeAdsView.delegate = self;
+    }
+    
+    // Add the remove ads view
+    [self.revealViewController.view addSubview:_removeAdsView];
 }
 
-- (IBAction)VisitWebsiteButtonTapped:(id)sender {
+- (IBAction)VisitWebsiteButtonTapped:(id)sender
+{
+    // Open up safari to the app page
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://codewithchris.com"]];
 }
+
+#pragma mark Alert View Delegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1)
+    {
+        // Yes was tapped; reset stats
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        
+        [userDefaults setValue:0 forKey:@"EasyQuestionsAnswered"];
+        [userDefaults setValue:0 forKey:@"EasyQuestionsAnsweredCorrectly"];
+        [userDefaults setValue:0 forKey:@"MediumQuestionsAnswered"];
+        [userDefaults setValue:0 forKey:@"MediumQuestionsAnsweredCorrectly"];
+        [userDefaults setValue:0 forKey:@"HardQuestionsAnswered"];
+        [userDefaults setValue:0 forKey:@"HardQuestionsAnsweredCorrectly"];
+        
+        [userDefaults synchronize];
+        
+        UIAlertView *confirmAlert = [[UIAlertView alloc] initWithTitle:@"Stats Reset" message:@"Stats have been reset" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [confirmAlert show];
+        
+        // Reset the table view
+        [self.tableView reloadData];
+        
+        // Update stat labels
+        [self calculateStats];
+    }
+}
+
+#pragma mark Remove Ads View Delegate Methods
+
+- (void)dismissRemoveAdsView
+{
+    // Remove blur view
+    [_blurView removeFromSuperview];
+    
+    // Remove the RemoveAdsView
+    [_removeAdsView removeFromSuperview];
+}
+    
 
 @end
