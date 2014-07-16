@@ -30,7 +30,7 @@
         [self addSubview:self.resultLabel];
         
         self.nextButton = [UIButton buttonWithType:UIButtonTypeSystem];
-        self.nextButton.frame = CGRectMake(257, 527, 64, 40);
+        self.nextButton.frame = CGRectMake(257, frame.size.height - 40, 64, 40);
         [self.nextButton setTitle:@"Next" forState:UIControlStateNormal];
         self.nextButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:18];
         [self.nextButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -62,7 +62,7 @@
     _dimLayer.path = path.CGPath;
     _dimLayer.fillRule = kCAFillRuleEvenOdd;
     _dimLayer.fillColor = [UIColor blackColor].CGColor;
-    _dimLayer.opacity = 0.8;
+    _dimLayer.opacity = 0.6;
     [self.layer addSublayer:_dimLayer];
     
     self.resultLabel.text = result;

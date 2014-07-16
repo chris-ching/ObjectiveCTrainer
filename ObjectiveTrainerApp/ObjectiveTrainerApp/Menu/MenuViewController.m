@@ -10,12 +10,14 @@
 #import "SWRevealViewController.h"
 #import "MenuTableViewCell.h"
 #import "FXBlurView.h"
+#import "QuestionViewController.h"
 
 @interface MenuViewController ()
 {
     UIAlertView *_resetPromptAlert;
     FXBlurView *_blurView;
     RemoveAdsView *_removeAdsView;
+    enum QuestionDifficulty _selectedDifficulty;
 }
 @end
 
@@ -120,25 +122,13 @@
     // Check which item was tapped
     MenuItem *item = self.menuItems[indexPath.row];
     
+    // Record the difficulty
+    _selectedDifficulty = (int)indexPath.row;
+    
     switch (item.screenType) {
         case ScreenTypeQuestion:
             // Go to question screen
             [self performSegueWithIdentifier:@"GoToQuestionsSegue" sender:self];
-            break;
-            
-        case ScreenTypeStats:
-            // Go to stats screen
-            [self performSegueWithIdentifier:@"GoToStatsSegue" sender:self];
-            break;
-            
-        case ScreenTypeAbout:
-            // Go to about screen
-            [self performSegueWithIdentifier:@"GoToAboutSegue" sender:self];
-            break;
-            
-        case ScreenTypeRemoveAds:
-            // Go to remove ads screen
-            [self performSegueWithIdentifier:@"GoToRemoveAdsSegue" sender:self];
             break;
             
         default:
@@ -152,6 +142,9 @@
 {
     // Set the front view controller to be the destination one
     [self.revealViewController setFrontViewController:segue.destinationViewController];
+    
+    QuestionViewController *vc = segue.destinationViewController;
+    vc.questionDifficulty = _selectedDifficulty;
     
     // Slide the front view controller back into place
     [self.revealViewController revealToggleAnimated:YES];
@@ -180,19 +173,30 @@
     // Set blur view properties
     _blurView.blurRadius = 15.0;
     _blurView.tintColor = [UIColor clearColor];
+    _blurView.alpha = 0;
     
     // Add blur view
     [self.revealViewController.view addSubview:_blurView];
     
-    // Create a new remove ads view if we haven't done so already
-    if (_removeAdsView == nil)
-    {
-        _removeAdsView = [[RemoveAdsView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-        _removeAdsView.delegate = self;
-    }
-    
-    // Add the remove ads view
-    [self.revealViewController.view addSubview:_removeAdsView];
+    [UIView animateWithDuration:0.3
+                     animations:^(void){
+                         _blurView.alpha = 1.0;
+                     }
+                     completion:^(BOOL finished){
+                     
+                         // Create a new remove ads view if we haven't done so already
+                         if (_removeAdsView == nil)
+                         {
+                             _removeAdsView = [[RemoveAdsView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+                             _removeAdsView.delegate = self;
+                         }
+                         
+                         _removeAdsView.alpha = 0;
+                         // Add the remove ads view
+                         [self.revealViewController.view addSubview:_removeAdsView];
+                         
+                         [UIView animateWithDuration:0.3 animations:^(void){ _removeAdsView.alpha = 1; }];
+                     }];
 }
 
 - (IBAction)VisitWebsiteButtonTapped:(id)sender
@@ -234,11 +238,23 @@
 
 - (void)dismissRemoveAdsView
 {
-    // Remove blur view
-    [_blurView removeFromSuperview];
+    [UIView animateWithDuration:0.3
+                     animations:^(void){
+                         _blurView.alpha = 0;
+                     }
+                     completion:^(BOOL finished){
+                         // Remove blur view
+                         [_blurView removeFromSuperview];
+                     }];
     
-    // Remove the RemoveAdsView
-    [_removeAdsView removeFromSuperview];
+    [UIView animateWithDuration:0.3
+                     animations:^(void){
+                         _removeAdsView.alpha = 0;
+                     }
+                     completion:^(BOOL finished){
+                         // Remove the RemoveAdsView
+                         [_removeAdsView removeFromSuperview];
+                     }];
 }
     
 

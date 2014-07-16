@@ -39,7 +39,7 @@
         [self addSubview:_messageLabel];
         
         _restoreButton = [UIButton buttonWithType:UIButtonTypeSystem];
-        _restoreButton.frame = CGRectMake(46, 432, 228, 45);
+        _restoreButton.frame = CGRectMake(46, frame.size.height - 136, 228, 45);
         _restoreButton.backgroundColor = [UIColor colorWithRed:56/255.0 green:56/255.0 blue:56/255.0 alpha:0.5];
         [_restoreButton setTitle:@"Restore Purchase" forState:UIControlStateNormal];
         [_restoreButton.layer setBorderWidth:1.0];
@@ -50,7 +50,7 @@
         [self addSubview:_restoreButton];
         
         _closeButton = [UIButton buttonWithType:UIButtonTypeSystem];
-        _closeButton.frame = CGRectMake(261, 532, 58, 35);
+        _closeButton.frame = CGRectMake(261, frame.size.height - 35, 58, 35);
         _closeButton.backgroundColor = [UIColor colorWithRed:56/255.0 green:56/255.0 blue:56/255.0 alpha:0.5];
         [_closeButton setTitle:@"Close" forState:UIControlStateNormal];
         [_closeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -113,7 +113,7 @@
 
 - (void)restoreTapped
 {
-    
+    [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
 }
 
 - (void)closeTapped

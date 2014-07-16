@@ -58,7 +58,7 @@
                 break;
                 
             case SKPaymentTransactionStateRestored:
-                //[self restoreTransaction:transaction];
+                [self restoreTransaction:transaction];
                 break;
                 
             default:
@@ -70,7 +70,7 @@
 - (void)completeTransaction:(SKPaymentTransaction*)transaction
 {
     // Display a message to the user that purchase was successful
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Purchase Successful" message:@"Thank you. Your purchase was successful" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Purchase Successful" message:@"Thank you. Ads have been removed." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alertView show];
     
     // Set flag in user defaults to not show ads
@@ -84,8 +84,22 @@
 - (void)failedTransaction:(SKPaymentTransaction*)transaction
 {
     // Display a message to the user that purchase was not succesful
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Purchase Canceled" message:@"Your purchase was canceled" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Purchase Canceled" message:@"Your purchase was canceled." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alertView show];
+    
+    [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+}
+
+- (void)restoreTransaction:(SKPaymentTransaction*)transaction
+{
+    // Display a message to the user that purchase was successful
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Restore Successful" message:@"Ads have been removed." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alertView show];
+    
+    // Set flag in user defaults to not show ads
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:@"bought" forKey:@"removeads"];
+    [defaults synchronize];
     
     [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
 }

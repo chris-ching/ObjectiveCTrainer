@@ -12,7 +12,7 @@
 #import "ResultView.h"
 #import <iAd/iAd.h>
 
-@interface QuestionViewController : UIViewController<ResultViewProtocol, ADBannerViewDelegate>
+@interface QuestionViewController : UIViewController<ResultViewProtocol, ADBannerViewDelegate, UITextFieldDelegate>
 
 @property (strong, nonatomic) QuestionModel *model;
 @property (strong, nonatomic) NSArray *questions;

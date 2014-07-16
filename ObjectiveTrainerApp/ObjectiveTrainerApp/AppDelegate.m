@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import <StoreKit/StoreKit.h>
+#import "SWRevealViewController.h"
 
 @implementation AppDelegate
 
@@ -15,9 +16,17 @@
 {
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
+    // Fresh app start, set previous difficulty to easy
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setInteger:0
+                      forKey:@"PreviousQuestionDifficulty"];
+    [userDefaults synchronize];
+    
     // Create a transaction observer and set it as the observer
     self.observer = [[StoreKitHelper alloc] init];
     [[SKPaymentQueue defaultQueue] addTransactionObserver:self.observer];
+    
+    [((SWRevealViewController*)self.window.rootViewController) revealToggleAnimated:NO];
     
     // Override point for customization after application launch.
     return YES;
